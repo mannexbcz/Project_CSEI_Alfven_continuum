@@ -8,7 +8,7 @@ The provided code include implementations of all these geometries, associated nu
 ## Structure of the code
 5 versions of the code are provided, corresponding to the different geometries and an additional textbook case.
 Each folder is structured in the same way and contains the following scripts
-- *solver___.m* : script used to solve the Alfvén continuum equation. Parameters can be modified directly in the file.
+- *solver___.m* : script to use to solve the Alfvén continuum equation. Parameters can be modified directly in the file.
 - *build___.m* or *matrices___.m* : functions to build the matrices of the matrix form of the Alfvén equation from the Fourier coefficients
 - *eigenmodes___.m* : returns the Alfvén eigenmodes
 - *get_fourier_coeff____.m* : computes the Fourier coefficients of the equilibrium coefficients
