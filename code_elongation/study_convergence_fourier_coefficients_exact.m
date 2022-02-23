@@ -55,22 +55,23 @@ k=kfct(r);
 epsilon=r/R0;
 q = qfct(r);
 
-nref=10^5;
+nref=10^4;
 mmin=0;
-mmax=20;
+mmax=10;
 
 qbar = qbar_exact(q,r,epsilon,k,kprime,delta,deltaprime,R0,nref);
 
 th=linspace(0,2*pi,nref);
-thetastar=theta_star(r,th,kprime,k,delta,deltaprime,q,qbar,B0,R0,nref);   
+thetastar=theta_star(r,th,kprime,k,delta,deltaprime,q,qbar,B0,R0,nref);
+thstarmid=0.5*(thetastar(1:nref-1)+thetastar(2:nref));
 
-[coeffs_M_REF,mM] = get_fourier_coeff_theta_prime_exact(Mtheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thetastar,dThetastardTheta,mmin,mmax,nref,R0,B0);
-[coeffs_N_REF,mN] = get_fourier_coeff_theta_prime_exact(Ntheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thetastar,dThetastardTheta,mmin,mmax,nref,R0,B0);
+[coeffs_M_REF] = get_fourier_coeff_theta_prime_exact(Mtheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thstarmid,dThetastardTheta,mmin,mmax,nref,R0,B0);
+[coeffs_N_REF] = get_fourier_coeff_theta_prime_exact(Ntheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thstarmid,dThetastardTheta,mmin,mmax,nref,R0,B0);
     
 
 %%
 
-ns=round(logspace(0,5,20));
+ns=round(logspace(0,4,20));
 errorM=zeros(1,length(ns));
 errorN=zeros(1,length(ns));
 
@@ -83,9 +84,10 @@ qbar = qbar_exact(q,r,epsilon,k,kprime,delta,deltaprime,R0,npoints);
 
     th=linspace(0,2*pi,npoints);
     thetastar=theta_star(r,th,kprime,k,delta,deltaprime,q,qbar,B0,R0,npoints);
+    thstarmid=0.5*(thetastar(1:npoints-1)+thetastar(2:npoints));
 
-    [coeffs_M,mM] = get_fourier_coeff_theta_prime_exact(Mtheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thetastar,dThetastardTheta,mmin,mmax,npoints,R0,B0);
-    [coeffs_N,mN] = get_fourier_coeff_theta_prime_exact(Ntheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thetastar,dThetastardTheta,mmin,mmax,npoints,R0,B0);
+    [coeffs_M] = get_fourier_coeff_theta_prime_exact(Mtheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thstarmid,dThetastardTheta,mmin,mmax,npoints,R0,B0);
+    [coeffs_N] = get_fourier_coeff_theta_prime_exact(Ntheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thstarmid,dThetastardTheta,mmin,mmax,npoints,R0,B0);
      
     errorM(s)=max(abs((coeffs_M-coeffs_M_REF)/coeffs_M_REF));
     errorN(s)=max(abs((coeffs_N-coeffs_N_REF)/coeffs_N_REF));
@@ -94,15 +96,16 @@ end
 
 %% FIGURE
 
-save=1; %Set 1 to save the figure, 0 otherwise
+save=0; %Set 1 to save the figure, 0 otherwise
 namefig=['Convergence_coeff_fourier_exact'];
 path='C:\Users\manon\Desktop\projet CSE I\figures\elongation\';
 
-Const1=polyfit(log(ns(1:end-1)),log(errorM(1:end-1)),1);
+Const1=polyfit(log(ns(5:end-1)),log(errorM(5:end-1)),1);
 m = Const1(1);
 k= Const1(2);
+JBL = ns(1:end-1).^m.*exp(k);
 
-Const2=polyfit(log(ns(1:end-1)),log(errorN(1:end-1)),1);
+Const2=polyfit(log(ns(5:end-1)),log(errorN(5:end-1)),1);
 m2 = Const2(1);
 k2= Const2(2);
 JBL2 = ns(1:end-1).^m2.*exp(k2);
@@ -120,7 +123,9 @@ xticks([10^0 10^1 10^2 10^3 10^4 10^5])
 xticklabels({'$10^0$','$10^1$','$10^2$','$10^3$','$10^4$','$10^5$'})
 xlabel('Number of mesh points')
 ylabel('Relative Error')
-legend('$a_\mathrm{eq}$','$y=-1.08x+b$','$b_\mathrm{eq}$','$y=-1.09x+b$')
+strlegend1=['$y=$',num2str(m,3),'$x+b$'];
+strlegend2=['$y=$',num2str(m2,3),'$x+b$'];
+legend('$a_\mathrm{eq}$',strlegend1,'$b_\mathrm{eq}$',strlegend2)
 
 if save
 saveas(gcf,[path,namefig],'epsc')

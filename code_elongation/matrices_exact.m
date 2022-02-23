@@ -36,16 +36,17 @@ function [M,N] = matrices_exact(r,epsilon,k,kprime,delta,deltaprime,q,qbar,R0,B0
     m_min_coeff=0;
     m_max_coeff=(band+1)/2;
     
-% Computation of theta star 
+% Computation of theta* at middle of intervals (for midpoint quadrature)
     th=linspace(0,2*pi,npoints);
-    thetastar=theta_star(r,th,kprime,k,delta,deltaprime,q,qbar,B0,R0,npoints);
-
+    thstar=theta_star(r,th,kprime,k,delta,deltaprime,q,qbar,B0,R0,npoints);
+    thstarmid=0.5*(thstar(1:npoints-1)+thstar(2:npoints));
+    
 % Fourier coefficients of the equilibrium coefficients
-    [coeffs_M] = get_fourier_coeff_theta_prime_exact(Mtheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thetastar,dThetastardTheta,m_min_coeff,m_max_coeff,npoints,R0,B0);
-    [coeffs_N] = get_fourier_coeff_theta_prime_exact(Ntheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thetastar,dThetastardTheta,m_min_coeff,m_max_coeff,npoints,R0,B0);
+    [coeffs_M] = get_fourier_coeff_theta_prime_exact(Mtheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thstarmid,dThetastardTheta,m_min_coeff,m_max_coeff,npoints,R0,B0);
+    [coeffs_N] = get_fourier_coeff_theta_prime_exact(Ntheta,r,k,kprime,delta,deltaprime,epsilon,q,qbar,thstarmid,dThetastardTheta,m_min_coeff,m_max_coeff,npoints,R0,B0);
        
 %Construction of the matrices
-    [M,N]=build_MN_bands_Fourier(coeffs_M, coeffs_N, m_min,m_max, n, qbar, F, size,band);
+    [M,N]=build_MN_bands_Fourier(coeffs_M, coeffs_N, m_min,m_max, n, q, F, size,band);
 
 return
 

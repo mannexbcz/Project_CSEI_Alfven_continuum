@@ -36,5 +36,5 @@ Ntheta = @(r,theta,k,kprime,delta,deltaprime,epsilon,qbar) (B0^2*R0^2)./(qbar.^2
     [coeffs_N] = get_fourier_coeff_theta_prime(Ntheta,r,k,kprime,delta,deltaprime,epsilon,qbar,thetastar,dThetastardTheta,m_min_coeff,m_max_coeff,npoints);
        
     %Construction of the matrices
-    [M,N]=build_MN_bands_Fourier(coeffs_M, coeffs_N, m_min,m_max, n, qbar, F, size,band);
+    [M,N]=build_MN_bands_Fourier(coeffs_M, coeffs_N, m_min,m_max, n, q, F, size,band);
 return

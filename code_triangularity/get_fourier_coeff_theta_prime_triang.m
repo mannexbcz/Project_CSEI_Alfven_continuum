@@ -20,8 +20,8 @@ function [coeffs]=get_fourier_coeff_theta_prime_triang(fun,r,k,kprime,delta,delt
    
     coeffs=[];
     for m = mmin:mmax
-        fun_theta = @(theta) exp(-1i.*m.*thetastar).*fun(r,thetastar,k,kprime,delta,deltaprime,d,dprime,epsilon,qbar).*dThetastardTheta(r,theta,k,kprime,deltaprime,delta,d,dprime,epsilon,qbar);
-        c=(1/2*pi)*midpoint_composite_quadrature(fun_theta, 0, 2*pi, npoints);
+        fun_theta = @(theta) exp(-1i.*m.*thetastar).*fun(r,theta,k,kprime,delta,deltaprime,d,dprime,epsilon,qbar).*dThetastardTheta(r,theta,k,kprime,deltaprime,delta,d,dprime,epsilon,qbar);
+        c=(1/2*pi)*midpoint_composite_quadrature(fun_theta, 0, 2*pi, npoints-1);
         coeffs=[coeffs,c];
     end
 

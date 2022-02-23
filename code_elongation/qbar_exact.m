@@ -14,5 +14,5 @@ function qbar = qbar_exact(q,r,epsilon,k,kprime,delta,deltaprime,R0,npoints)
 
     integrand_q = @(theta)  ((kprime.*r./k).*sin(theta).^2+deltaprime.*cos(theta)+1)./(1+delta./R0+epsilon.*cos(theta));
 
-    qbar = q*2*pi/midpoint_composite_quadrature(integrand_q, 0, 2*pi, npoints);
+    qbar = q*2*pi/midpoint_composite_quadrature(integrand_q, 0, 2*pi, npoints-1);
 end

@@ -13,15 +13,15 @@ format long;
 
 %% Parameters
 
-size=3;     % rank of the matrices M and N
-band=5;     % bands of the matrices M and N
+size=2;     % rank of the matrices M and N
+band=3;     % bands of the matrices M and N
 a=0.1;      % minor radius
 n=1;        % toroidal mode number
 R0=1;       % major radius
 B0=1;       % magnetic field
 F = R0*B0;  % toroidal flux current
-nr = 1000;  % number of magnetic surfaces considered
-npoints=100;% number of mesh points used for the integration
+nr = 201;  % number of magnetic surfaces considered
+npoints=33;% number of mesh points used for the integration
 q = @(r) 1+2*(r/a).^2; % safety factor
 
 % Elongation

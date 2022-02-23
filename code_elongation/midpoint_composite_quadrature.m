@@ -8,10 +8,14 @@ function [ Ih ] = midpoint_composite_quadrature( fun, a, b, M )
 %              (the case M=1 corresponds to the simple formula)
 %  Output: Ih = approximate value of the integral
 %
-H=(b-a)/M;
-xint=linspace(a,b,M+1);
-x_bar_k = ( xint( 1 : end - 1 ) + xint( 2 : end ) ) / 2; % M coordinates
-fxint=fun(x_bar_k);
-Ih=H*sum(fxint);
+if M==0
+    Ih=0;
+else
+    H=(b-a)/M;
+    xint=linspace(a,b,M+1);
+    x_bar_k = ( xint( 1 : end - 1 ) + xint( 2 : end ) ) / 2; % M coordinates
+    fxint=fun(x_bar_k);
+    Ih=H*sum(fxint);
+end
 
 end

@@ -18,9 +18,9 @@ a=0.1;      % minor radius
 n=1;        % toroidal mode number
 R0=1;       % major radius
 B0=1;       % magnetic field
-delta_p=-0.1;% derivative of the shift
+delta_p=-0.0;% derivative of the shift
 F = R0*B0;  % toroidal flux current
-nr = 1000;  % number of magnetic surfaces considered
+nr = 201;  % number of magnetic surfaces considered
 q = @(r) 1+2*(r/a).^2; % safety factor
 
 %% Alfvén eigenmodes

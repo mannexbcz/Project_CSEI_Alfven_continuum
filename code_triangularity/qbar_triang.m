@@ -16,9 +16,9 @@ function qbar = qbar_triang(q,r,k,kprime,delta,deltaprime,d,dprime,R0,npoints)
     Zeta = @(theta,d) theta + asin(d).*sin(theta);
     R = @(r,theta,delta,d) R0+delta+r.*cos(Zeta(theta,d));
     sd = @(r,d,dprime) (dprime.*r)./(sqrt(1-d.^2)) ;
-    D = @(r,theta,k,kprime,deltaprime,d,dprime) k*cos(theta).*(deltaprime+cos(Zeta(theta,d))+sd(r,d,dprime).*sin(theta).*sin(Zeta(theta,d)))+(kprime.*r+k).*sin(theta).*(1+asin(d).*cos(theta)).*sin(Zeta(theta,d)) ;
+    D = @(r,theta,k,kprime,deltaprime,d,dprime) k*cos(theta).*(deltaprime+cos(Zeta(theta,d))-sd(r,d,dprime).*sin(theta).*sin(Zeta(theta,d)))+(kprime.*r+k).*sin(theta).*(1+asin(d).*cos(theta)).*sin(Zeta(theta,d)) ;
 
     integrand_q = @(theta)  (R0.*D(r,theta,k,kprime,deltaprime,d,dprime))./(R(r,theta,delta,d).*k) ;
     
-    qbar = q*2*pi/midpoint_composite_quadrature(integrand_q, 0, 2*pi, npoints);
+    qbar = q*2*pi/midpoint_composite_quadrature(integrand_q, 0, 2*pi, npoints-1);
 end

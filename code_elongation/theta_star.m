@@ -22,7 +22,7 @@ function t = theta_star(r,th,kprime,k,delta,deltaprime,q,qbar,B0,R0,npoints)
     t=zeros(1,npoints);
     
     for i=1:npoints
-        t(i) = (1/q)*midpoint_composite_quadrature(integrand,0,th(i),i) ; 
+        t(i) = (1/q)*midpoint_composite_quadrature(integrand,0,th(i),i-1) ; 
     end
  
 return

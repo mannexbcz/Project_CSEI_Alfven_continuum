@@ -19,7 +19,7 @@ a=0.1;      % minor radius
 n=1;        % toroidal mode number
 R0=1;       % major radius
 B0=1;       % magnetic field
-nr = 1000;  % number of magnetic surfaces considered
+nr = 201;  % number of magnetic surfaces considered
 q = @(r) 1+2*(r/a).^2; % safety factor
 
 %% Alfvén eigenmodes

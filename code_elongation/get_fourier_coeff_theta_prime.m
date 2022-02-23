@@ -15,8 +15,8 @@ function [coeffs]=get_fourier_coeff_theta_prime(fun,r,k,kprime,delta,deltaprime,
     
     coeffs=[];
     for m = mmin:mmax
-        fun_theta = @(theta) exp(-1i.*m.*thetastar(r,theta,k,kprime,deltaprime,epsilon)).*fun(r,thetastar(r,theta,k,kprime,deltaprime,epsilon),k,kprime,delta,deltaprime,epsilon,qbar).*dThetastardTheta(r,theta,k,kprime,deltaprime,delta,epsilon,qbar);
-        c=(1/2*pi)*midpoint_composite_quadrature(fun_theta, 0, 2*pi, npoints);
+        fun_theta = @(theta) exp(-1i.*m.*thetastar(r,theta,k,kprime,deltaprime,epsilon)).*fun(r,theta,k,kprime,delta,deltaprime,epsilon,qbar).*dThetastardTheta(r,theta,k,kprime,deltaprime,delta,epsilon,qbar);
+        c=(1/2*pi)*midpoint_composite_quadrature(fun_theta, 0, 2*pi, npoints-1);
         coeffs=[coeffs,c];
     end
 
