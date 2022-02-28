@@ -1,18 +1,4 @@
-function t = theta_star_triang(r,th,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0,R0,npoints)
-% This function computes the value of theta star with respect to theta,
-% using equation (44)
-% Inputs:
-%   r : radius, double
-%   th : theta, double
-%   k : coefficient for the elongation, double
-%   delta, deltaprime : coefficients for the shift, double
-%   d,dprime : coefficients for the triangularity, double
-%   q, qbar : safety factors, handle functions
-%   R0 : major radius, double
-%   B0 : magnetic field, double
-%   npoints : number of mesh points for the numerical integration, int
-% Outputs:
-%   t : theta star with respect to theta, vector of size(1,lenght(th))
+function t = theta_star_mid(r,thmid,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0,R0,npoints)
 
     Zeta = @(theta,d) theta + asin(d).*sin(theta);
     sd = @(r,d,dprime) (dprime.*r)./(sqrt(1-d.^2)) ;
@@ -24,10 +10,12 @@ function t = theta_star_triang(r,th,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0
     integrand = @(theta) BdotGradPhi(r,theta,delta,d)./BdotGradTheta(r,theta,k,kprime,deltaprime,delta,d,dprime,qbar);
     
     t=zeros(1,npoints);
-    sum=0;
+    
+    t(1)=(1/q)*midpoint_composite_quadrature(integrand,0,thmid(1),1);
+    sum = t(1);
     for i=2:npoints
-        sum = sum + (1/q)*midpoint_composite_quadrature(integrand,th(i-1),th(i),1) ;
+        sum = sum + (1/q)*midpoint_composite_quadrature(integrand,thmid(i-1),thmid(i),1) ;
         t(i) = sum ; 
     end
- 
+    disp(t)
 return

@@ -14,7 +14,7 @@ format long;
 
 size=5;     % rank of the matrices M and N
 band=7;     % bands of the matrices M and N
-a=0.1;      % minor radius
+a=0.05;      % minor radius
 n=1;        % toroidal mode number
 R0=1;       % major radius
 B0=1;       % magnetic field
@@ -72,11 +72,11 @@ grid on
 xlabel('$\delta_a$')
 ylabel('TAE Gap')
 
-figure
-plot(dprimes.*a,EAEgaps,'k +')
-grid on
-xlabel('$\delta_a$')
-ylabel('EAE Gap')
+% figure
+% plot(dprimes.*a,EAEgaps,'k +')
+% grid on
+% xlabel('$\delta_a$')
+% ylabel('EAE Gap')
 
 figure
 plot(dprimes.*a,NAEgaps,'k +')

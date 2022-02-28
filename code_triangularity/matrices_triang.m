@@ -42,11 +42,14 @@ Ntheta = @(r,theta,k,kprime,delta,deltaprime,d,dprime,epsilon,qbar) GradPsi2(r,t
     
    % Computation of theta * at middle of intervals (for midpoint quadrature)
     th=linspace(0,2*pi,npoints);
-    thstar=theta_star_triang(r,th,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0,R0,npoints);
-    thstarmid=0.5*(thstar(1:npoints-1)+thstar(2:npoints));
+%     thstar=theta_star_triang(r,th,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0,R0,npoints);
+%     thstarmid=0.5*(thstar(1:npoints-1)+thstar(2:npoints));
 %     thmid=0.5*(th(1:end-1)+th(2:end));
 %     thstarmid=theta_star_triang(r,thmid,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0,R0,npoints-1);
     
+    thmid = 0.5*(th(1:end-1)+th(2:end));
+    thstarmid = theta_star_mid(r,th,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0,R0,npoints-1);
+
    % Fourier coefficients
     [coeffs_M] = get_fourier_coeff_theta_prime_triang(Mtheta,r,k,kprime,delta,deltaprime,d,dprime,epsilon,q,qbar,thstarmid,dThetastardTheta,m_min_coeff,m_max_coeff,npoints,R0,B0);
     [coeffs_N] = get_fourier_coeff_theta_prime_triang(Ntheta,r,k,kprime,delta,deltaprime,d,dprime,epsilon,q,qbar,thstarmid,dThetastardTheta,m_min_coeff,m_max_coeff,npoints,R0,B0);
