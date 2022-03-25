@@ -55,7 +55,7 @@ for i=1:length(r)
 
     epsilon=r(i)/R0;
     delta = deltafct(r(i));
-    k = kfct(r(i),k_a);
+    k = kfct(r(i));
     
     qbar = qbar_exact(q(r(i)),r(i),epsilon,k,kprime,delta,deltaprime,R0,npoints);
 
@@ -140,7 +140,7 @@ for i=1:length(r)
     
     epsilon=r(i)/R0;
     delta = deltafct(r(i));
-    k = kfct(r(i),k_a);
+    k = kfct(r(i));
     qbar = qbar_exact(q(r(i)),r(i),epsilon,k,kprime,delta,deltaprime,R0,npoints);
 
     [M,N]=matrices_exact(r(i),epsilon,k,kprime,delta,deltaprime,q(r(i)),qbar,R0,B0,n,size,band,npoints);
@@ -174,7 +174,7 @@ for i=1:length(r)
     
     epsilon=r(i)/R0;
     delta = deltafct(r(i));
-    k = kfct(r(i),k_a);
+    k = kfct(r(i));
     qbar = qbar_exact(q(r(i)),r(i),epsilon,k,kprime,delta,deltaprime,R0,npoints);
 
     [M,N]=matrices_exact(r(i),epsilon,k,kprime,delta,deltaprime,q(r(i)),qbar,R0,B0,n,size,band,npoints);

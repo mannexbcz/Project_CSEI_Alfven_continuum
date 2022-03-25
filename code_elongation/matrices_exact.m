@@ -35,10 +35,11 @@ function [M,N] = matrices_exact(r,epsilon,k,kprime,delta,deltaprime,q,qbar,R0,B0
 
     m_min_coeff=0;
     m_max_coeff=(band+1)/2;
-    
+    d=0;
+    dprime=0;
 % Computation of theta* at middle of intervals (for midpoint quadrature)
     th=linspace(0,2*pi,npoints);
-    thstar=theta_star(r,th,kprime,k,delta,deltaprime,q,qbar,B0,R0,npoints);
+    thstar=theta_star_triang(r,th,kprime,k,delta,deltaprime,d,dprime,q,qbar,B0,R0,npoints);
     thstarmid=0.5*(thstar(1:npoints-1)+thstar(2:npoints));
     
 % Fourier coefficients of the equilibrium coefficients

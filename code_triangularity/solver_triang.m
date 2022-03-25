@@ -12,11 +12,11 @@ format long;
 
 %% Parameters
 
-size=5;     % rank of the matrices M and N
+size=10;     % rank of the matrices M and N
 band=7;     % bands of the matrices M and N
-a=0.1;      % minor radius
+a=0.24;      % minor radius
 n=1;        % toroidal mode number
-R0=1;       % major radius
+R0=0.88;       % major radius
 B0=1;       % magnetic field
 F = R0*B0;  % toroidal flux current
 nr = 201;  % number of magnetic surfaces considered
@@ -24,7 +24,7 @@ npoints=33;% number of mesh points used for the integration
 q = @(r) 1+2*(r/a).^2; % safety factor
 
 % Elongation
-k_a=1.1;
+k_a=1.4;
 kprime=0;
 kfct = @(r) kprime.*(r-a) + k_a;
 
@@ -33,7 +33,7 @@ deltaprime= -0.1;
 deltafct = @(r)  -deltaprime*a + deltaprime *r;
 
 %Triangularity
-dprime = 0.5;
+dprime = 0.8/a;
 dfct = @(r) dprime.*r;
 
 %% Eigenmodes

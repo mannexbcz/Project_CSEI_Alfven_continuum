@@ -14,7 +14,7 @@ format long;
 
 size=5;     % rank of the matrices M and N
 band=7;     % bands of the matrices M and N
-a=0.05;      % minor radius
+a=0.1;      % minor radius
 n=1;        % toroidal mode number
 R0=1;       % major radius
 B0=1;       % magnetic field
@@ -47,22 +47,31 @@ for s = 1:length(dprimes)
     w = eigenmodes_triang(size,band,kfct,k_a,kprime,deltafct,deltaprime,dfct,dprime,q,R0,B0,a,n,nr,npoints);
 
     %TAE gaps
-    [pks1,locs1] = findpeaks(real(w(1,:)),'MinPeakDistance',10);
-    [pks2,locs2] = findpeaks(-real(w(2,:)),'MinPeakDistance',10);
+%     [pks1,locs1] = findpeaks(real(w(1,:)),'MinPeakDistance',10);
+%     [pks2,locs2] = findpeaks(-real(w(2,:)),'MinPeakDistance',10);
+    diff1 = abs(real(w(2,:))-real(w(1,:)));
 
-    TAEgaps(s)=w(2,locs2(1))-w(1,locs1(1));
+    [pks1,locs1] = findpeaks(-diff1);
+    TAEgaps(s)=-pks1(1);
     
     % EAE gaps
-    [pks3,locs3] = findpeaks(real(w(2,:)));
-    [pks4,locs4] = findpeaks(-real(w(3,:))); 
+%     [pks3,locs3] = findpeaks(real(w(2,:)));
+%     [pks4,locs4] = findpeaks(-real(w(3,:))); 
+    diff2 = abs(real(w(3,:))-real(w(2,:)));
+
+    [pks2,locs2] = findpeaks(-diff2);
+    EAEgaps(s)=-pks2(1);
     
-    EAEgaps(s)=-max(pks4)-min(pks3); %w(3,locs4(1))-w(2,locs3(1));
+%     EAEgaps(s)=-max(pks4)-min(pks3); %w(3,locs4(1))-w(2,locs3(1));
 
     % NAE gaps
-    [pks5,locs5] = findpeaks(real(w(3,:)));
-    [pks6,locs6] = findpeaks(-real(w(4,:))); 
+%     [pks5,locs5] = findpeaks(real(w(3,:)));
+%     [pks6,locs6] = findpeaks(-real(w(4,:))); 
+    diff3 = abs(real(w(4,:))-real(w(3,:)));
 
-    NAEgaps(s)=-max(pks6)-min(pks4); 
+    [pks3,locs3] = findpeaks(-diff3);
+    NAEgaps(s)=-pks3(2);
+%     NAEgaps(s)=-max(pks6)-min(pks4); 
 end
 %% Figures
 
